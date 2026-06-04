@@ -21,7 +21,7 @@ import {
   orderBy,
   where,
 } from "firebase/firestore";
-import { db, auth } from "../firebase";
+import { db, auth, isDummyFirebase } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 const tipsList = [
@@ -53,6 +53,34 @@ const DashboardOverview = () => {
 
   useEffect(() => {
     setLoading(true);
+
+    if (isDummyFirebase) {
+      const mockInterviews = [
+        {
+          id: "mock-1",
+          company: "Google",
+          position: "Frontend Developer",
+          date: "2026-06-04",
+          status: "Completed",
+          score: 85,
+          feedback: "Great UI design concepts and React optimization knowledge. Solid performance overall.",
+          tips: "Review advanced system design patterns for distributed systems."
+        },
+        {
+          id: "mock-2",
+          company: "Netflix",
+          position: "Senior React Engineer",
+          date: "2026-05-20",
+          status: "Pending",
+          score: null,
+          feedback: "",
+          tips: ""
+        }
+      ];
+      setInterviews(mockInterviews);
+      setLoading(false);
+      return;
+    }
 
     // Listen to Firebase auth state changes
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {

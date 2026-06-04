@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { FaBriefcase } from "react-icons/fa";
 
-import { db, auth } from "../firebase";
+import { db, auth, isDummyFirebase } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 const MODEL_NAME = 'models/gemini-2.5-flash-preview-05-20';
@@ -143,7 +143,9 @@ Only return valid JSON.
 
       console.log("🔥 Submission Data:", submissionData);
 
-      await addDoc(collection(db, "interview_submissions"), submissionData);
+      if (!isDummyFirebase) {
+        await addDoc(collection(db, "interview_submissions"), submissionData);
+      }
       navigate("/dashboard/start-interview", {
         state: { name, position, skills, experience, portfolio, Question: parsed },
       });
