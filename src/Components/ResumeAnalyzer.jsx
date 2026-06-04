@@ -15,9 +15,7 @@ import {
 } from "react-icons/fa";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as pdfjsLib from "pdfjs-dist";
-import workerSrc from "pdfjs-dist/build/pdf.worker.min.js?url";
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
+pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 
 const MODEL_NAME = "models/gemini-2.5-flash-preview-05-20";
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
