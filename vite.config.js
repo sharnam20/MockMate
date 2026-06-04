@@ -11,9 +11,13 @@ export default defineConfig({
       '@google/generative-ai': path.resolve('src/mockGenerativeAI.js'),
     },
   },
+  optimizeDeps: {
+    exclude: ['@google/generative-ai'],
+  },
   server: {
     proxy: {
       '/api': 'http://localhost:4000',
     },
   },
 })
+

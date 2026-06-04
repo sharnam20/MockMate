@@ -17,7 +17,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as pdfjsLib from "pdfjs-dist";
 pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 
-const MODEL_NAME = "models/gemini-2.5-flash-preview-05-20";
+const MODEL_NAME = "gemini-2.5-flash";
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 const steps = [
