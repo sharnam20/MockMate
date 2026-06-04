@@ -127,19 +127,33 @@ Sincerely,
         }
         else if (promptLower.includes("resume") || promptLower.includes("score")) {
           // ResumeAnalyzer
-          textResponse = JSON.stringify({
-            score: 88,
-            feedback: [
-              "Quantify your impacts: include metrics such as 'reduced bundle size by 30%' or 'increased query performance by 40%'.",
-              "Highlight cloud service configurations (AWS/GCP) and CI/CD pipelines.",
-              "Clean up styling details to keep the resume formatted cleanly on a single page."
-            ],
-            analyzedResume: {
-              skills: ["React", "JavaScript", "HTML/CSS", "Firebase", "Git", "Node.js"],
-              experience: ["Software Intern", "Fullstack Developer"],
-              education: ["CS Bachelor Degree"]
+          textResponse = JSON.stringify([
+            {
+              "resumeScore": 88,
+              "atsCompatibility": 82,
+              "improvements": [
+                "Include concrete metrics to quantify your impact (e.g., 'reduced bundle size by 30%').",
+                "Add details about deployment, CI/CD pipelines, and cloud services (AWS/GCP/Vercel)."
+              ],
+              "suggestions": [
+                "Consider formatting skills into categorizations (Frontend, Backend, Tools) for better readability.",
+                "Ensure professional links like LinkedIn or GitHub are placed at the header."
+              ],
+              "weaknesses": [
+                "Limited visibility of testing methodologies (unit tests, integration tests).",
+                "Education description lacks coursework highlights."
+              ],
+              "strengths": [
+                "Excellent usage of modern tech stack keywords (React, JavaScript, Firebase, Git).",
+                "Strong project portfolio highlighting real-world applications."
+              ],
+              "recommendedRoles": [
+                "Frontend Engineer",
+                "Fullstack Developer",
+                "Software Engineer"
+              ]
             }
-          });
+          ]);
         }
         else if (promptLower.includes("recruiter") || promptLower.includes("interview transcript") || promptLower.includes("strengths")) {
           // AIInterviewPage (generateFeedback)
