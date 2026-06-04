@@ -24,3 +24,7 @@ setPersistence(auth, browserLocalPersistence)
 
 export const googleProvider = new GoogleAuthProvider();
 export const db = getFirestore(app);
+
+// Enable offline mock mode if dummy values are present
+export const isDummyFirebase = !import.meta.env.VITE_FIREBASE_API_KEY || import.meta.env.VITE_FIREBASE_API_KEY.includes("Dummy");
+

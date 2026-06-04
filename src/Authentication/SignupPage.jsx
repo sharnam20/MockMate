@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { auth, googleProvider, db } from "../firebase";
+import { auth, googleProvider, db, isDummyFirebase } from "../firebase";
 
 import SignupIllustration from "./SignupIllustration";
 
@@ -69,6 +69,22 @@ const SignupPage = () => {
     setErrors(val);
     if (Object.keys(val).length) return;
 
+    if (isDummyFirebase) {
+      // Mock signup/login
+      const mockUser = {
+        uid: "mock-uid-123",
+        displayName: name || (email ? email.split('@')[0] : "Mock User"),
+        email: email,
+        role: role
+      };
+      localStorage.setItem('currentUser', JSON.stringify(mockUser));
+      setSubmitted(true);
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 1500);
+      return;
+    }
+
     try {
       if (isSignup) {
         const uc = await createUserWithEmailAndPassword(auth, email, password);
@@ -98,6 +114,21 @@ const SignupPage = () => {
   };
 
   const handleGoogle = async () => {
+    if (isDummyFirebase) {
+      const mockUser = {
+        uid: "mock-uid-google",
+        displayName: "Mock Google User",
+        email: "googleuser@example.com",
+        role: "candidate"
+      };
+      localStorage.setItem('currentUser', JSON.stringify(mockUser));
+      setSubmitted(true);
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 1500);
+      return;
+    }
+
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;

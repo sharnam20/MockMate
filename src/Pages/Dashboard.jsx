@@ -21,7 +21,7 @@ import ChatBot from "../Components/Chatbot";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { auth } from "../firebase";
+import { auth, isDummyFirebase } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const Dashboard = () => {
@@ -33,6 +33,14 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (isDummyFirebase) {
+      const localUser = localStorage.getItem('currentUser');
+      if (localUser) {
+        setUser(JSON.parse(localUser));
+      }
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
@@ -99,6 +107,13 @@ const Dashboard = () => {
 
   const handleLogout = async () => {
     try {
+      if (isDummyFirebase) {
+        localStorage.removeItem('currentUser');
+        toast.success("Logged out successfully!");
+        setUserMenuOpen(false);
+        navigate("/signup");
+        return;
+      }
       await signOut(auth);
       toast.success("Logged out successfully!");
       setUserMenuOpen(false);
