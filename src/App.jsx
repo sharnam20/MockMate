@@ -50,7 +50,7 @@ const App = () => {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
-  );   d40f2c3890msh3d9bb282d466b53p1cbcdajsn5d6ac67109d1
+  );
 };
 
 export default App;
